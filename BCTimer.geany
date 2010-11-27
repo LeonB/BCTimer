@@ -1,0 +1,25 @@
+
+[indentation]
+indent_width=4
+indent_type=0
+indent_hard_tab_width=8
+detect_indent=false
+indent_mode=2
+
+[project]
+name=BCTimer
+base_path=/home/leon/Workspaces/BCTimer/
+description=
+
+[long line marker]
+long_line_behaviour=1
+long_line_column=72
+
+[files]
+current_page=0
+FILE_NAME_0=1882;Python;0;16;0;1;0;/home/leon/Workspaces/BCTimer/src/bctimer.py;0
+
+[build-menu]
+EX_00_LB=_Execute
+EX_00_CM=python "%f" run-in-window
+EX_00_WD=
