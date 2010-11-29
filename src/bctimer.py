@@ -5,16 +5,17 @@ __email__ = "leon@tim-online.nl"
 __date__ = "$Nov 27, 2010 11:37:38 AM$"
 
 import pygtk
-#pygtk.require('2.0')
+pygtk.require('2.0')
 
 import gtk
+import gnome
 import gnomeapplet
 import gobject
 import sys
 import logging
 from logging.handlers import SysLogHandler
 
-class BaseCampTimer_Applet(gnomeapplet.Applet):
+class BaseCampTimer_Applet():
     title = 'Basecamp Timer'
     version = '0.0.1'
     icon_name = 'network-offline'
@@ -26,85 +27,66 @@ class BaseCampTimer_Applet(gnomeapplet.Applet):
 
     def __init__(self, applet, iid):
         logging.debug('__init__')
+        # initializate the gnome internals
+        gnome.init("sample", "1.0")
 
         # save the applet object
         self.applet = applet
 
-        # determine the size to draw the icon
-        size = self.applet.get_size() - 2
-        
-        #Get theme, find SVG icon and put it in a pixbuf
-        theme = gtk.icon_theme_get_default()
-        pixbuf = theme.load_icon(self.icon_name, size, gtk.ICON_LOOKUP_FORCE_SVG)
-        
-        #Load image
-        image = gtk.image_new_from_pixbuf(pixbuf)
-
         # set up the applet tooltip
         self.applet.set_tooltip_text(self.title)
-
-        self.button = gtk.Button()
-       # self.button.set_label("sad asd asdasd asd asd s ")
-        #self.button.set_relief(gtk.RELIEF_HALF)
-        #self.button.set_relief(gtk.RELIEF_NORMAL)
-        self.button.set_relief(gtk.RELIEF_NONE)
-        self.button.set_image(image)
-
-        self.button.connect('button-press-event', self.button_press)
+        
+        gtk.rc_parse_string("""
+            style "event_box_style"
+            {
+                GtkWidget::focus-line-width=0
+                GtkWidget::focus-padding=0
+            }
+            style "menu_bar_style"
+            {
+                ythickness = 0
+                GtkMenuBar::shadow-type = none
+                GtkMenuBar::internal-padding = 0
+            }
+            class "GtkEventBox" style "event_box_style"
+            class "GtkMenuBar" style:highest "menu_bar_style"
+        """);
+        
+        self.menu_bar = gtk.MenuBar()
+        self.menu_item = gtk.MenuItem('00:13')
+        
+        print self.menu_bar.style_get_property("shadow-type")
+        
+        #self.menu_bar.set_relief(gtk.RELIEF_NONE)
+        #self.menu_bar.state = gtk.STATE_INSENSITIVE
+        self.menu_item.set_submenu(self.menu())
+        self.menu_bar.append(self.menu_item)
+        
+        #self.button = gtk.Label()
+        #self.button.set_label('asasasd')
+        
+        #self.button = PanelButton()
+        #self.button.connect('toggled', self.on_toggle)
+        
+        print self.menu_bar.style_get_property('focus-line-width')
+        print self.menu_item.style_get_property('focus-line-width')
+        
+        #self.menu_bar.unset_flags(gtk.CAN_FOCUS)
+        
+        self.menu_bar.connect('button-press-event', self.button_press)
         #self.applet.connect('change-size', self.change_size, image)
         #self.applet.connect('change-background', self.change_background)
         
-        self.applet.add(self.button)
-        self.applet.show_all()
+        self.applet.add(self.menu_bar)
+        
+        self.setup_rightclick_menu()
 
     def left_click(self, event):
         logging.debug('left_click')
+        #self.button.set_relief(gtk.RELIEF_NORMAL)
         #self.show_leftclick_menu(event)
-        self.menu().popup(None, None, self.menu_position, event.button, event.time)
-        return gtk.TRUE
-        
-    def menu_position(self, menu):
-        label = self.button.get_allocation()
-        window = menu.get_allocation()
-        screen = self.button.get_screen()
-
-        x, y = self.button.get_parent_window().get_origin()
-        menu_w, menu_h = menu.size_request()
-        
-        logging.debug("y: %i" % y)
-        logging.debug("label.height: %i" % label.height)
-        logging.debug("self.button.get_screen().get_height(): %i" % self.button.get_screen().get_height())
-        logging.debug("window.height: %i" % window.height)
-        logging.debug("menu_w: %i" % menu_w)
-        logging.debug("menu_h: %i" % menu_h)
-
-        self.popup_dir = self.applet.get_orient()
-
-        if self.popup_dir in (gnomeapplet.ORIENT_DOWN, gnomeapplet.ORIENT_UP):
-            if self.popup_dir == gnomeapplet.ORIENT_DOWN:
-                #y = y + label.height
-                y = self.applet.get_size()
-            else:
-                y = screen.get_height() - self.applet.get_size() - menu_h
-
-            screen_w = self.button.get_screen().get_width()
-            if x + window.width > screen_w:
-                x = screen_w - window.width
-
-        elif self.popup_dir in (gnomeapplet.ORIENT_RIGHT, gnomeapplet.ORIENT_LEFT):
-            if self.popup_dir == gnomeapplet.ORIENT_RIGHT:
-                x = x + label.width
-            else:
-                x = x - window.width
-
-            screen_h = self.button.get_screen().get_height()
-            if y + window.height > screen_h:
-                y = screen_h - window.height
-              
-        logging.debug(x)
-        logging.debug(y)
-
-        return (x, y, 0)
+        #self.menu().popup(None, None, self.menu_position, event.button, event.time)
+        return True
         
     def right_click(self, event):
         logging.debug('right_click')
@@ -112,28 +94,40 @@ class BaseCampTimer_Applet(gnomeapplet.Applet):
     def doFirst():
         pass
         
-    def doSecond():
-        pass
-        
-    def doThird():
-        pass
-        
     def menu(self):
         logging.debug('menu')
         menu = gtk.Menu() 
         
         menuItems = [ 
-            ["first", self.doFirst], 
-            ["second", self.doSecond], 
-            ["third", self.doThird]] 
+            ["Start", self.doFirst], 
+            ["Reset timer", self.doFirst], 
+            [],
+            ["Projects", self.doFirst], 
+            ["Post time to Basecamp", self.doFirst], 
+            [],
+            ["Round time", self.doFirst], 
+            ["Edit timer", self.doFirst], 
+            [],
+            ["Show timer", self.doFirst],
+        ]
         
         for menuItem in menuItems: 
-            item = gtk.MenuItem(menuItem[0], True) 
-            item.show() 
-            item.connect( "activate", *menuItem[1:]) 
+            if (len(menuItem) > 0):
+                item = gtk.MenuItem(menuItem[0], True)
+                item.show() 
+                item.connect( "activate", *menuItem[1:]) 
+            else:
+                item = gtk.SeparatorMenuItem()
             menu.add(item)
         
+        menu.connect("destroy", self.on_menu_destroy)
         return menu
+        
+    def on_menu_destroy(self, menu):
+        #logging.debug('print self.button.state: %i' % self.button.state)
+        #logging.debug('self.button.get_relief(): %s' % self.button.get_relief())
+        #self.button.set_relief(gtk.RELIEF_NONE)
+        pass
 
     def setup_rightclick_menu(self):
         xml="""<popup name="button3">
@@ -142,14 +136,11 @@ class BaseCampTimer_Applet(gnomeapplet.Applet):
           label="_Preferences" 
           pixtype="stock" 
           pixname="gtk-preferences"/>
-<separator/>
-<submenu name="Submenu" _label="Su_bmenu">
 <menuitem name="ItemAbout" 
           verb="About" 
           label="_About" 
           pixtype="stock" 
           pixname="gtk-about"/>
-</submenu>
 </popup>"""
 
         verbs = [('About', self.show_about), ('Preferences', self.show_preferences)]
@@ -200,145 +191,36 @@ class BaseCampTimer_Applet(gnomeapplet.Applet):
         # right mouse button
         elif event.button == 3:
             self.right_click(event)
-            button.emit_stop_by_name("button_press_event")
-            
-class PanelButton(gtk.ToggleButton):
+            button.emit_stop_by_name("button_press_event") #else the menu doesn't show
+
+#@todo: fix this
+class PanelButton(gtk.MenuBar):
     def __init__(self):
-        gtk.ToggleButton.__init__(self)
-        self.set_relief(gtk.RELIEF_NONE)
-        self.set_border_width(0)
-
-        self.label = gtk.Label()
-        self.label.set_justify(gtk.JUSTIFY_CENTER)
-
-        self.label.connect('style-set', self.on_label_style_set)
-        self.connect('size_allocate', self.on_size_allocate)
-        self.connect('button_press_event', self.on_button_press)
-
-        self.add(self.label)
-
-        self.activity, self.duration = None, None
-        self.prev_size = 0
-
-
-        # remove padding, so we fit on small panels (adapted from clock applet)
-        gtk.rc_parse_string ("""style "hamster-applet-button-style" {
-                GtkWidget::focus-line-width=0
-                GtkWidget::focus-padding=0
-            }
-
-            widget "*.hamster-applet-button" style "hamster-applet-button-style"
-        """);
-        gtk.Widget.set_name (self, "hamster-applet-button");
-
-
-    def set_active(self, is_active):
-        self.set_property('active', is_active)
-
-    def set_text(self, activity, duration):
-        activity = stuff.escape_pango(activity)
-        if len(activity) > 25:  #ellipsize at some random length
-            activity = "%s%s" % (activity[:25], "&#8230;")
-
-        self.activity = activity
-        self.duration = duration
-        self.reformat_label()
-
-    def reformat_label(self):
-        label = self.activity
-        if self.duration:
-            if self.use_two_line_format():
-                label = "%s\n%s" % (self.activity, self.duration)
-            else:
-                label = "%s %s" % (self.activity, self.duration)
-
-        label = '<span gravity="south">%s</span>' % label
-        self.label.set_markup("") #clear - seems to fix the warning
-        self.label.set_markup(label)
-
-    def use_two_line_format(self):
-        if not self.get_parent():
-            return False
-
-        popup_dir = self.get_parent().get_orient()
-
-        orient_vertical = popup_dir in [gnomeapplet.ORIENT_LEFT] or \
-                          popup_dir in [gnomeapplet.ORIENT_RIGHT]
-
-
-        context = self.label.get_pango_context()
-        metrics = context.get_metrics(self.label.style.font_desc,
-                                      pango.Context.get_language(context))
-        ascent = pango.FontMetrics.get_ascent(metrics)
-        descent = pango.FontMetrics.get_descent(metrics)
-
-        if orient_vertical == False:
-            thickness = self.style.ythickness;
-        else:
-            thickness = self.style.xthickness;
-
-        focus_width = self.style_get_property("focus-line-width")
-        focus_pad = self.style_get_property("focus-padding")
-
-        required_size = 2 * ((pango.PIXELS(ascent + descent) ) + 2 * (focus_width + focus_pad + thickness))
-
-        if orient_vertical:
-            available_size = self.get_allocation().width
-        else:
-            available_size = self.get_allocation().height
-
-        return required_size <= available_size
-
-    def on_label_style_set(self, widget, something):
-        self.reformat_label()
-
-    def on_size_allocate(self, widget, allocation):
-        if not self.get_parent():
-            return
-
-        self.popup_dir = self.get_parent().get_orient()
-
-        orient_vertical = True
-        new_size = allocation.width
-        if self.popup_dir in [gnomeapplet.ORIENT_LEFT]:
-            new_angle = 270
-        elif self.popup_dir in [gnomeapplet.ORIENT_RIGHT]:
-            new_angle = 90
-        else:
-            new_angle = 0
-            orient_vertical = False
-            new_size = allocation.height
-
-        if new_angle != self.label.get_angle():
-            self.label.set_angle(new_angle)
-
-        if new_size != self.prev_size:
-            self.reformat_label()
-
-        self.prev_size = new_size
-
-    def on_button_press(self, widget, event):
-        # this allows dragging applet around panel and friends
-        if event.button != 1:
-            widget.stop_emission('button_press_event')
-        return False
+        pass
 
 # function to run/register the class
 def BaseCampTimer_factory(applet, iid):
+    applet.set_applet_flags(gnomeapplet.EXPAND_MINOR)
     BaseCampTimer_Applet(applet, iid)
-    return gtk.TRUE
+    
+    applet.show_all()
+    applet.set_background_widget(applet)
+    return True
 
 if __name__ == '__main__':
-    gobject.type_register(BaseCampTimer_Applet)
+    gobject.type_register(gnomeapplet.Applet)
 
     # Use parameter "run-in-window" to just run as a regular
     # application for debugging purposes
     if len(sys.argv) > 1 and sys.argv[1] == 'run-in-window':
+        logging.debug('Running in windowed mode')
+        
         # create the main window
+        gtk.window_set_default_icon_name(BaseCampTimer_Applet.icon_name)
         main_window = gtk.Window(gtk.WINDOW_TOPLEVEL)
         main_window.set_title(BaseCampTimer_Applet.title)
         main_window.connect('destroy', gtk.main_quit)
-        main_window.set_default_size(36, 36)
+        main_window.set_default_size(24, 24)
 
         # create the applet and run in the window
         app = gnomeapplet.Applet()
@@ -349,8 +231,9 @@ if __name__ == '__main__':
         main_window.show_all()
         gtk.main()
     else:
+        logging.debug('Running as applet')
         # create as an applet
         gnomeapplet.bonobo_factory('OAFIID:BCTimer_Applet_Factory',
-                                   BaseCampTimer_Applet.__gtype__,
+                                   gnomeapplet.Applet.__gtype__,
                                    BaseCampTimer_Applet.title, BaseCampTimer_Applet.version,
                                    BaseCampTimer_factory)

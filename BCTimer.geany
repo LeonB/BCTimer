@@ -17,7 +17,8 @@ long_line_column=72
 
 [files]
 current_page=0
-FILE_NAME_0=1882;Python;0;16;0;1;0;/home/leon/Workspaces/BCTimer/src/bctimer.py;0
+FILE_NAME_0=635;Python;0;16;0;1;0;/home/leon/Workspaces/BCTimer/src/bctimer.py;0
+FILE_NAME_1=3167;Python;0;16;0;1;0;/usr/share/pyshared/hamster/applet.py;0
 
 [build-menu]
 EX_00_LB=_Execute

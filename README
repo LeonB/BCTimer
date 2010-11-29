@@ -1,0 +1,13 @@
+@todo:
+  - When away: stop timer
+  - think about how/when to post
+  - seperate class for upload function
+  - Make it workspace dependant (hamster)
+
+Away function
+  - http://live.gnome.org/GnomeScreensaver/FrequentlyAskedQuestions#Is_there_a_way_to_perform_actions_when_the_screensaver_activates_or_deactivates.3F__Or_when_the_session_becomes_idle.3F
+  - use idle.py from project hamster
+
+Inspiration:
+  - http://fuelcollective.com/images/eon/screenshots/screenshot.png
+  - 
