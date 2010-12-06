@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk+" version="2.16"/>
+  <!-- interface-naming-policy project-wide -->
+  <object class="GtkMenu" id="menuActions">
+    <property name="visible">True</property>
+    <property name="ubuntu_local">True</property>
+    <signal name="button_press_event" handler="on_menuActions_button_press_event"/>
+    <child>
+      <object class="GtkMenuItem" id="menuitemStartTimer">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Start</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="menuitemResetTimer">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Reset timer</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="separator1">
+        <property name="visible">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="menuitemProjects">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Projects</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="menuitemIntegration">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Post time to Basecamp</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="separator2">
+        <property name="visible">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="menuitemRoundTime">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Round time</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="menuitemEditTimer">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Edit Timer</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkSeparatorMenuItem" id="separator3">
+        <property name="visible">True</property>
+      </object>
+    </child>
+    <child>
+      <object class="GtkMenuItem" id="menuitemShowTimer">
+        <property name="visible">True</property>
+        <property name="label" translatable="yes">Show Timer</property>
+        <signal name="activate" handler="on_menuitemShowTimer_activate"/>
+      </object>
+    </child>
+  </object>
+  <object class="GtkWindow" id="windowTimer">
+    <property name="width_request">400</property>
+    <property name="border_width">12</property>
+    <property name="title" translatable="yes">Timer</property>
+    <property name="window_position">center</property>
+    <property name="type_hint">utility</property>
+    <child>
+      <object class="GtkVBox" id="vbox1">
+        <property name="visible">True</property>
+        <child>
+          <object class="GtkLabel" id="labelTime">
+            <property name="height_request">80</property>
+            <property name="visible">True</property>
+            <property name="label" translatable="yes">00:00:00</property>
+            <attributes>
+              <attribute name="size" value="45000"/>
+            </attributes>
+          </object>
+          <packing>
+            <property name="fill">False</property>
+            <property name="padding">6</property>
+            <property name="position">0</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBoxEntry" id="comboboxentry2">
+            <property name="visible">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="padding">6</property>
+            <property name="position">1</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkComboBoxEntry" id="comboboxentry1">
+            <property name="visible">True</property>
+          </object>
+          <packing>
+            <property name="expand">False</property>
+            <property name="fill">False</property>
+            <property name="padding">6</property>
+            <property name="position">2</property>
+          </packing>
+        </child>
+        <child>
+          <object class="GtkEntry" id="entryTime">
+            <property name="visible">True</property>
+            <property name="can_focus">True</property>
+            <property name="invisible_char">•</property>
+            <property name="text" translatable="yes">00:00:00</property>
+            <property name="caps_lock_warning">False</property>
+          </object>
+          <packing>
+            <property name="position">3</property>
+          </packing>
+        </child>
+      </object>
+    </child>
+  </object>
+  <object class="GtkEntryCompletion" id="entrycompletionProjects"/>
+  <object class="GtkEntryCompletion" id="entrycompletionTodos"/>
+</interface>

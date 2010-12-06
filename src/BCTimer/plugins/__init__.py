@@ -1,0 +1,1 @@
+from appindicatormenu import AppIndicatorMenu
