@@ -1,4 +1,5 @@
 import appindicator
+#indicator #messaging menu
 class AppIndicatorMenu():
     def __init__(self, menu):
         self.ind = appindicator.Indicator ("example-simple-client", "indicator-messages", appindicator.CATEGORY_APPLICATION_STATUS)

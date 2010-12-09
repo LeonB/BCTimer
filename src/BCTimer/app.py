@@ -2,9 +2,12 @@ import logging
 from logging.handlers import SysLogHandler
 import gtk
 import BCTimer
-import pango
+import os
+import sys
 
 class App:
+    ROOTDIR = os.path.join(os.path.abspath(os.path.dirname(sys.argv[0])))
+    
     def __init__(self):
         self.setup_logger()
         self.setup_menu()
@@ -17,19 +20,19 @@ class App:
         
     def setup_menu(self):
         builder = gtk.Builder()
-        builder.add_from_file("bctimer.xml") 
+        builder.add_from_file(App.ROOTDIR + '/' + "actions_menu.glade") 
         self.menu = builder.get_object("menuActions")
         
-        entry_time = builder.get_object("entryTime")
-        entry_time.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse("red")) 
-        
-        size = 22.0
-        style = entry_time.style
-        font_desc = style.font_desc.copy()
-        font_desc.set_size(28)
-        entry_time.modify_font(pango.FontDescription('courier Medium 32'))
-        
-        self.entry_time = entry_time
+        #~ entry_time = builder.get_object("entryTime")
+        #~ entry_time.modify_text(gtk.STATE_NORMAL, gtk.gdk.color_parse("red")) 
+        #~ 
+        #~ size = 22.0
+        #~ style = entry_time.style
+        #~ font_desc = style.font_desc.copy()
+        #~ font_desc.set_size(28)
+        #~ entry_time.modify_font(pango.FontDescription('courier Medium 32'))
+        #~ 
+        #~ self.entry_time = entry_time
         
         #~ context = entry_time.get_pango_context()
         #~ font = context.get_font_description()
@@ -83,26 +86,24 @@ class ActionsMenu(gtk.Menu):
         self.app.logger.debug('right_click')
     
     def on_menuitemStartTimer_activate(self, event):
-        print 'on_menuitemStartTimer_activate'
+        self.app.logger.debug('on_menuitemStartTimer_activate')
     
     def on_menuitemResetTimer_activate(self, event):
-        print 'on_menuitemResetTimer_activate'
+        self.app.logger.debug('on_menuitemResetTimer_activate')
         
     def on_menuitemShowTimer_activate(self, event):
-        print 'on_menuitemShowTimer_activate'
-        builder = gtk.Builder()
-        builder.add_from_file("bctimer.xml") 
-        self.timer = builder.get_object("windowTimer")
-        self.timer.show()
+        self.app.logger.debug('on_menuitemShowTimer_activate')
+        #self.app.logger.debug(BCTimer.windows.Timer.getInstance())
+        BCTimer.windows.Timer.getInstance(self.app).show()
         
     def on_menuitemEditTimer_activate(self, event):
-        print 'on_menuitemEditTimer_activate'
+        self.app.logger.debug('on_menuitemEditTimer_activate')
         
     def on_menuitemRoundTime_activate(self, event):
-        print 'on_menuitemRoundTime_activate'
+        self.app.logger.debug('on_menuitemRoundTime_activate')
         
     def on_menuitemProjects_activate(self, event):
-        print 'on_menuitemProjects_activate'
+        self.app.logger.debug('on_menuitemProjects_activate')
         
     def on_menuitemIntegration_activate(self, event):
-        print 'on_menuitemIntegration_activate'
+        self.app.logger.debug('on_menuitemIntegration_activate')

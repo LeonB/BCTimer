@@ -16,9 +16,19 @@ long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=1
-FILE_NAME_0=5531;Python;0;16;0;1;0;/home/leon/Workspaces/BCTimer/src/applet.py;0
-FILE_NAME_1=122;Python;0;16;0;1;0;/home/leon/Workspaces/BCTimer/src/BCTimer/app.py;0
+current_page=0
+FILE_NAME_0=1528;None;0;16;0;1;0;/home/leon/Workspaces/BCTimer/README;0
+FILE_NAME_1=578;Python;0;16;0;1;0;/home/leon/Workspaces/BCTimer/tests/test3.py;0
+FILE_NAME_2=680;Python;0;16;0;1;0;/home/leon/Workspaces/BCTimer/tests/test2.py;0
+FILE_NAME_3=347;Python;0;16;0;1;0;/home/leon/Workspaces/BCTimer/tests/clock_ex4.py;0
+FILE_NAME_4=540;Python;0;16;0;1;0;/home/leon/Workspaces/BCTimer/tests/svgclock.py;0
+FILE_NAME_5=573;Python;0;16;0;1;0;/home/leon/Workspaces/BCTimer/tests/face.py;0
+FILE_NAME_6=343;Python;0;16;0;1;0;/home/leon/Workspaces/BCTimer/tests/framework.py;0
+FILE_NAME_7=402;Python;0;16;0;1;0;/home/leon/Workspaces/BCTimer/tests/face2.py;0
+FILE_NAME_8=1170;Python;0;16;0;1;0;/home/leon/Workspaces/BCTimer/src/applet.py;0
+FILE_NAME_9=1031;Python;0;16;0;1;0;/home/leon/Workspaces/BCTimer/src/BCTimer/windows/timer.py;0
+FILE_NAME_10=2776;Python;0;16;0;1;0;/home/leon/Workspaces/BCTimer/tests/clock.py;0
+FILE_NAME_11=520;Python;0;16;0;1;0;/home/leon/Workspaces/BCTimer/tests/cairo_.py;0
 
 [build-menu]
 EX_00_LB=_Execute

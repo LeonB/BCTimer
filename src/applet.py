@@ -4,7 +4,7 @@ __author__= "Leon Bogaert"
 __email__ = "leon@tim-online.nl"
 __date__ = "$Nov 27, 2010 11:37:38 AM$"
 
-import pygtk
+import pygtk    
 pygtk.require('2.0')
 
 import gtk
