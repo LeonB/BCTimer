@@ -9,6 +9,7 @@ Global idea:
   - Make it workspace dependant (hamster)
   - Notifications
   - Respect gnome date format
+  - Alleen projecten met actieve todo items (# in haakjes?)
 
 Away function
   - http://live.gnome.org/GnomeScreensaver/FrequentlyAskedQuestions#Is_there_a_way_to_perform_actions_when_the_screensaver_activates_or_deactivates.3F__Or_when_the_session_becomes_idle.3F
@@ -31,7 +32,15 @@ GUI/GTK:
 Documentation:
   - http://learnpygtk.org/pygtktutorial/spinner.html
   - http://www.eurion.net/python-snippets
+  - http://docs.python.org/library/profile.html
+  
+DB:
+  - http://code.activestate.com/recipes/526618-multithread-support-for-sqlite-access/
 
 Autostart:
   - ~/.config/autostart/
   - http://gdevilspie.googlecode.com/svn-history/r127/trunk/gdevilspie (UpdateAutostartStatus(self))
+
+Opzet classes:
+  Project(sqlite) (Deze maar even laten zitten?)
+    - BascampProject(BasecampObject) (lxml)

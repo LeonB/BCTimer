@@ -7,6 +7,7 @@
   <object class="GtkWindow" id="windowTimer">
     <property name="width_request">400</property>
     <property name="border_width">12</property>
+    <property name="title" translatable="yes">Timer</property>
     <property name="window_position">center</property>
     <property name="type_hint">utility</property>
     <child>
@@ -93,12 +94,13 @@
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="tooltip_text" translatable="yes">Start timer</property>
+                <signal name="clicked" handler="on_buttonPlay_clicked"/>
                 <child>
                   <object class="GtkImage" id="imagePlay">
-                    <property name="width_request">40</property>
-                    <property name="height_request">40</property>
                     <property name="visible">True</property>
                     <property name="stock">gtk-media-play</property>
+                    <property name="icon-size">6</property>
                   </object>
                 </child>
               </object>

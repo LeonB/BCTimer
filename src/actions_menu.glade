@@ -8,54 +8,42 @@
     <signal name="button_press_event" handler="on_menuActions_button_press_event"/>
     <child>
       <object class="GtkMenuItem" id="menuitemStartTimer">
-        <property name="visible">True</property>
         <property name="label" translatable="yes">Start</property>
       </object>
     </child>
     <child>
       <object class="GtkMenuItem" id="menuitemResetTimer">
-        <property name="visible">True</property>
         <property name="label" translatable="yes">Reset timer</property>
       </object>
     </child>
     <child>
-      <object class="GtkSeparatorMenuItem" id="separator1">
-        <property name="visible">True</property>
-      </object>
+      <object class="GtkSeparatorMenuItem" id="separator1"/>
     </child>
     <child>
       <object class="GtkMenuItem" id="menuitemProjects">
-        <property name="visible">True</property>
         <property name="label" translatable="yes">Projects</property>
       </object>
     </child>
     <child>
       <object class="GtkMenuItem" id="menuitemIntegration">
-        <property name="visible">True</property>
         <property name="label" translatable="yes">Post time to Basecamp</property>
       </object>
     </child>
     <child>
-      <object class="GtkSeparatorMenuItem" id="separator2">
-        <property name="visible">True</property>
-      </object>
+      <object class="GtkSeparatorMenuItem" id="separator2"/>
     </child>
     <child>
       <object class="GtkMenuItem" id="menuitemRoundTime">
-        <property name="visible">True</property>
         <property name="label" translatable="yes">Round time</property>
       </object>
     </child>
     <child>
       <object class="GtkMenuItem" id="menuitemEditTimer">
-        <property name="visible">True</property>
         <property name="label" translatable="yes">Edit Timer</property>
       </object>
     </child>
     <child>
-      <object class="GtkSeparatorMenuItem" id="separator3">
-        <property name="visible">True</property>
-      </object>
+      <object class="GtkSeparatorMenuItem" id="separator3"/>
     </child>
     <child>
       <object class="GtkMenuItem" id="menuitemShowTimer">
